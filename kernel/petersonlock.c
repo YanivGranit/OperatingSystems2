@@ -27,7 +27,7 @@ peterson_init(void)
 }
 
 int
-peterson_create(struct petersonlock *lk)
+peterson_create(void)
 {
   for (int i = 0; i < NPETERSONLOCK; i++) 
   {
@@ -63,11 +63,11 @@ int peterson_acquire(int lock_id, int role)
 
   int other = 1 - role;
   lk->interested[role] = 1;
-  lk->turn = role;
+  lk->turn = other;
 
   __sync_synchronize();
 
-  while (lk->interested[other] && lk->turn == role) 
+  while (lk->interested[other] && lk->turn == other) 
   {
     yield(); // Give up CPU to avoid busy waiting
   }
