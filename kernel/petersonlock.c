@@ -47,7 +47,8 @@ peterson_create(void)
     return -1;
 }
 
-int peterson_acquire(int lock_id, int role) 
+int 
+peterson_acquire(int lock_id, int role) 
 {
   if (lock_id < 0 || lock_id >= NPETERSONLOCK)
     return -1;

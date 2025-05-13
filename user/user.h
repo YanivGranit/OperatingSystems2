@@ -1,4 +1,5 @@
 struct stat;
+typedef unsigned int   uint;
 
 // system calls
 int fork(void);
@@ -22,6 +23,10 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
+int peterson_create(void);
+int peterson_acquire(int, int);
+int peterson_release(int, int);
+int peterson_destroy(int);
 
 // ulib.c
 int stat(const char*, struct stat*);
