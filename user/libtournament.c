@@ -68,10 +68,10 @@ tournament_acquire(void)
     {
         int lock_index = get_lock_index(level);
         int role = get_process_role_by_level(level);
-        if (peterson_acquire(lock_index, role) < 0) 
+        if (peterson_acquire(lock_index, role) < 0)
         {
             return -1;
-        }    
+        }
     }    
 
     return 0;  // Successfully reached root lock

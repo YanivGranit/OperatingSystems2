@@ -57,6 +57,7 @@ peterson_acquire(int lock_id, int role)
 
   if (role != 0 && role != 1)
     return -1;
+  
 
   struct petersonlock *lk = &petersonlocks[lock_id];
 
@@ -65,17 +66,15 @@ peterson_acquire(int lock_id, int role)
     return -1;
 
   int other = 1 - role;
-  lk->interested[role] = 1;
+  lk->interested[role] =1;
   lk->turn = other;
 
   __sync_synchronize();
-
   while (lk->interested[other] && lk->turn == other) 
   {
     yield(); // Give up CPU to avoid busy waiting
+    __sync_synchronize();
   }
-
-  __sync_synchronize();
 
   return 0;
 }
