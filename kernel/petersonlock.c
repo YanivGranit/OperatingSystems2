@@ -30,7 +30,9 @@ int
 peterson_create(void)
 {
   for (int i = 0; i < NPETERSONLOCK; i++) 
-  {
+  {     
+    __sync_synchronize();
+
     if (__sync_lock_test_and_set(&petersonlocks[i].state, 1) == 0)
     {
       __sync_synchronize();
@@ -38,10 +40,10 @@ peterson_create(void)
       petersonlocks[i].interested[0] = 0;
       petersonlocks[i].interested[1] = 0;
       petersonlocks[i].turn = 0;
-      petersonlocks[i].state = 1;
-      return i;
 
       __sync_synchronize();
+      
+      return i;
     }
   }
     return -1;
