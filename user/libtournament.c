@@ -44,7 +44,7 @@ tournament_create(int processes)
     }    
 
     // Create processes
-    for (int i = 0; i < processes; i++) 
+    for (int i = 1; i < processes; i++) 
     {
         int pid = fork();
         if (pid < 0) 
@@ -64,7 +64,7 @@ tournament_create(int processes)
 int 
 tournament_acquire(void) 
 {
-    for (int level = 0; level < num_levels; level++) 
+    for (int level = num_levels-1; level >= 0; level--) 
     {
         int lock_index = get_lock_index(level);
         int role = get_process_role_by_level(level);
@@ -80,7 +80,7 @@ tournament_acquire(void)
 int 
 tournament_release(void) 
 {
-    for (int level = num_levels - 1; level >= 0; level--) 
+    for (int level = 0; level < num_levels; level++) 
     {
         int lock_index = get_lock_index(level);
         int role = get_process_role_by_level(level);

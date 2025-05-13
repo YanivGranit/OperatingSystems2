@@ -66,14 +66,13 @@ peterson_acquire(int lock_id, int role)
     return -1;
 
   int other = 1 - role;
-  lk->interested[role] =1;
+  lk->interested[role] = 1;
   lk->turn = other;
-
   __sync_synchronize();
-  while (lk->interested[other] && lk->turn == other) 
+  while (lk->interested[other] && lk->turn == other)
   {
-    yield(); // Give up CPU to avoid busy waiting
-    __sync_synchronize();
+      yield();
+      __sync_synchronize();
   }
 
   return 0;
