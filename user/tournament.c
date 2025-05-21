@@ -1,8 +1,9 @@
 #include "user.h"
 
-int main() 
+int main(int argc, char *argv[]) 
 {
-    int procId = tournament_create(16);
+    int procs_number = atoi(argv[1]);
+    int procId = tournament_create(procs_number);
 
     if(procId < 0) 
     {
